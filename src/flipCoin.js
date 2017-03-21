@@ -2,18 +2,25 @@ import { observable, computed } from 'mobx';
 import {
   HEADS,
   TAILS
-} from './constants/coinFlipConstants';
+} from './_constants/coinFlipConstants';
 
 class coinFlip {
+
+  constructor() {
+    this.increaseNumberOfFlips = this.increaseNumberOfFlips.bind(this);
+    this.decreaseNumberOfFlips = this.decreaseNumberOfFlips.bind(this);
+  }
 
   @observable numberOfFlips = 0;
 
   increaseNumberOfFlips() {
     this.numberOfFlips += 1;
+    console.log(this.numberOfFlips)
   }
 
   decreaseNumberOfFlips() {
     this.numberOfFlips -= 1;
+    console.log(this.numberOfFlips)
   }
 
   // Returns true for heads, false for tails

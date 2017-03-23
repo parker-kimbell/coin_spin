@@ -30,17 +30,22 @@ class Landing extends Component {
       <View style={styles.container}>
         <Text> Individual and group settings </Text>
         <AddCoin onPress={this.props.store.increaseNumberOfFlips} />
-        <Text>
-          {this.props.store.numberOfFlips}
-        </Text>
+        <View style={{justifyContent : 'center', alignItems : 'center', marginVertical : 20}}>
+          <Text>
+            {this.props.store.numberOfFlips}
+          </Text>
+        </View>
         <SubtractCoin onPress={this.props.store.decreaseNumberOfFlips} />
-        <FlipAllCoins onPress={this.props.store.flipAllCoins} />
-        <Text>
-          Tails: {this.props.store.flipResultsTails}
-        </Text>
-        <Text>
-          Heads: {this.props.store.flipResultsHeads}
-        </Text>
+
+        <View style={{flex : 1, alignItems : 'center', justifyContent : 'flex-end'}}>
+          <FlipAllCoins onPress={this.props.store.flipAllCoins} />
+          <Text>
+            Tails: {this.props.store.flipResultsTails}
+          </Text>
+          <Text>
+            Heads: {this.props.store.flipResultsHeads}
+          </Text>
+        </View>
       </View>
     );
   }

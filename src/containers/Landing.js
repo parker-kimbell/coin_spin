@@ -8,6 +8,8 @@ import {
   observer
 } from 'mobx-react/native';
 import { MKButton } from 'react-native-material-kit';
+import SpinningCoin from '../components/SpinningCoin';
+const {Surface} = require("gl-react-native");
 
 // colored button with default theme (configurable)
 const AddCoin = MKButton.coloredButton()
@@ -24,6 +26,9 @@ const FlipAllCoins = MKButton.coloredButton()
 
 @observer
 class Landing extends Component {
+
+
+
   render() {
     console.log('in landing ', this.props.store.numberOfFlips)
     return (
@@ -36,7 +41,9 @@ class Landing extends Component {
           </Text>
         </View>
         <SubtractCoin onPress={this.props.store.decreaseNumberOfFlips} />
-
+        <Surface width={300} height={200}>
+          <SpinningCoin />
+        </Surface>
         <View style={{flex : 1, alignItems : 'center', justifyContent : 'flex-end'}}>
           <FlipAllCoins onPress={this.props.store.flipAllCoins} />
           <Text>

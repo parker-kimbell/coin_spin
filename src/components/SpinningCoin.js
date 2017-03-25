@@ -1,7 +1,5 @@
 const GL = require("gl-react");
 const React = require("react");
-const {Surface} = require("gl-react-native");
-
 
 const shaders = GL.Shaders.create({
   helloGL: {
@@ -17,7 +15,8 @@ void main () { // This function is called FOR EACH PIXEL
 });
 
 module.exports = GL.createComponent(
-  () => {return (
+  () => {
+    return (
       <GL.Node shader={shaders.helloGL} />
   )},
   { displayName: "SpinningCoin" });

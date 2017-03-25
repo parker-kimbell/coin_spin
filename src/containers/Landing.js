@@ -3,13 +3,14 @@ import {
   View,
   Text,
   StyleSheet,
+  ScrollView
 } from 'react-native';
 import {
   observer
 } from 'mobx-react/native';
 import { MKButton } from 'react-native-material-kit';
 import SpinningCoin from '../components/SpinningCoin';
-const {Surface} = require("gl-react-native");
+import {Surface} from 'gl-react-native';
 
 // colored button with default theme (configurable)
 const AddCoin = MKButton.coloredButton()
@@ -22,18 +23,23 @@ const SubtractCoin = MKButton.coloredButton()
 
 const FlipAllCoins = MKButton.coloredButton()
   .withText('Flip all coins')
+  .withStyle({ marginTop : 40})
   .build();
 
 @observer
 class Landing extends Component {
 
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      pastFlips : []
+    };
+  }
 
   render() {
     console.log('in landing ', this.props.store.numberOfFlips)
     return (
       <View style={styles.container}>
-        <Text> Individual and group settings </Text>
         <AddCoin onPress={this.props.store.increaseNumberOfFlips} />
         <View style={{justifyContent : 'center', alignItems : 'center', marginVertical : 20}}>
           <Text>
@@ -41,17 +47,34 @@ class Landing extends Component {
           </Text>
         </View>
         <SubtractCoin onPress={this.props.store.decreaseNumberOfFlips} />
-        <Surface width={300} height={200}>
+        {/*<Surface width={300} height={200}>
           <SpinningCoin />
-        </Surface>
+        </Surface>*/}
         <View style={{flex : 1, alignItems : 'center', justifyContent : 'flex-end'}}>
-          <FlipAllCoins onPress={this.props.store.flipAllCoins} />
-          <Text>
-            Tails: {this.props.store.flipResultsTails}
-          </Text>
-          <Text>
-            Heads: {this.props.store.flipResultsHeads}
-          </Text>
+          <FlipAllCoins onPress={() => {
+              let pastFlips = [...this.state.pastFlips, this.props.store.flipAllCoins()];
+              this.setState({pastFlips});
+            }} />
+          <ScrollView>
+            {this.state.pastFlips.map((flipResults, i) => {
+              return (
+                <View key={i} style={{paddingVertical : 10, borderBottomWidth : 1}}>
+                  <Text style={{fontWeight : 'bold'}}>
+                    Flip {i + 1}
+                  </Text>
+                  <Text>
+                    Tails: {flipResults.tails}
+                  </Text>
+                  <Text>
+                    Heads: {flipResults.heads}
+                  </Text>
+                  <Text>
+                    Total coins: {flipResults.heads + flipResults.tails}
+                  </Text>
+                </View>
+              );
+            }).reverse()}
+          </ScrollView>
         </View>
       </View>
     );

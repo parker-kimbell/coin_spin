@@ -30,14 +30,23 @@ class coinFlip {
     console.log(this.numberOfFlips)
   }
 
-  flipAllCoins() {
+  flipSingleCoin() {
+    let result = this.flipCoins(1);
+    return result;
+  }
+
+  flipCoins(flips) {
     this.flipResultsHeads = 0;
     this.flipResultsTails = 0;
-    this.recursiveFlip(this.numberOfFlips);
+    this.recursiveFlip(flips);
     return {
       tails : this.flipResultsTails,
       heads : this.flipResultsHeads
     };
+  }
+
+  flipAllCoins() {
+    return this.flipCoins(this.numberOfFlips);
   }
 
   recursiveFlip(flipsRemaining) {

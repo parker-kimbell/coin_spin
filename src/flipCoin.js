@@ -34,7 +34,6 @@ class coinFlip {
     this.flipResultsHeads = 0;
     this.flipResultsTails = 0;
     this.recursiveFlip(this.numberOfFlips);
-    this.numberOfFlips = 0;
     return {
       tails : this.flipResultsTails,
       heads : this.flipResultsHeads

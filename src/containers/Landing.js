@@ -12,6 +12,7 @@ import { MKButton } from 'react-native-material-kit';
 import SpinningCoin from '../components/SpinningCoin';
 import {Surface} from 'gl-react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import coinFlipStore from '../flipCoin';
 
 // colored button with default theme (configurable)
 const AddCoin = MKButton.coloredFab()
@@ -46,20 +47,20 @@ class Landing extends Component {
   }
 
   render() {
-    console.log('in landing ', this.props.store.numberOfFlips)
+    console.log('in landing ', coinFlipStore.numberOfFlips)
     return (
       <View style={styles.container}>
         <View style={{ flex : 1 }}>
           <View style={{flexDirection : 'row', alignItems : 'center', justifyContent : 'center'}}>
-            <AddCoin onPress={this.props.store.increaseNumberOfFlips}>
+            <AddCoin onPress={coinFlipStore.increaseNumberOfFlips}>
               <Icon name="plus" style={{color : 'white', fontSize : 20}}/>
             </AddCoin>
             <View style={{ marginHorizontal : 20}}>
               <Text>
-                {this.props.store.numberOfFlips}
+                {coinFlipStore.numberOfFlips}
               </Text>
             </View>
-            <SubtractCoin onPress={this.props.store.decreaseNumberOfFlips}>
+            <SubtractCoin onPress={coinFlipStore.decreaseNumberOfFlips}>
               <Icon name="minus" style={{color : 'white', fontSize : 20}}/>
             </SubtractCoin>
           </View>
@@ -68,10 +69,10 @@ class Landing extends Component {
           </Surface>*/}
           <View style={{flexDirection:'row', alignItems : 'center', justifyContent : 'space-between'}}>
             <FlipAllCoins onPress={() => {
-                this._appendFlipResult(this.props.store.flipAllCoins());
+                this._appendFlipResult(coinFlipStore.flipAllCoins());
               }} />
             <FlipOne onPress={() => {
-                this._appendFlipResult(this.props.store.flipSingleCoin());
+                this._appendFlipResult(coinFlipStore.flipSingleCoin());
               }} />
           </View>
         </View>
